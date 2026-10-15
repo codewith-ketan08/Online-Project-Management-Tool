@@ -1,0 +1,6 @@
+<%@ page contentType="text/html;charset=UTF-8" %>
+<% if(session.getAttribute("userId")==null){response.sendRedirect(request.getContextPath()+"/login.jsp");return;} %>
+<!DOCTYPE html><html><head><meta charset="UTF-8"><title>New Project | ProjectFlow</title><link rel="stylesheet" href="css/style.css"></head><body><header class="topbar"><div class="brand">Project<span>Flow</span></div><a href="dashboard">← Dashboard</a></header>
+<main class="form-wrap"><section class="form-card"><p class="eyebrow">PROJECT SETUP</p><h1>Create a project</h1><p class="muted">Define the goal and timeline. You can update status later.</p>
+<% if(request.getAttribute("error")!=null){ %><div class="alert"><%=request.getAttribute("error")%></div><% } %>
+<form method="post" action="projects"><input type="hidden" name="action" value="create"><label>Project name</label><input name="name" minlength="3" maxlength="150" required><label>Description</label><textarea name="description" rows="4" placeholder="What does this project aim to achieve?"></textarea><div class="two-col"><div><label>Start date</label><input type="date" name="startDate"></div><div><label>Deadline</label><input type="date" name="deadline"></div></div><button class="btn" type="submit">Create project</button></form></section></main></body></html>

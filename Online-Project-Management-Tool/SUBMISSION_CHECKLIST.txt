@@ -1,0 +1,13 @@
+SUBMISSION CHECKLIST
+1. Replace [Your Name], [Team Members], and [University Name] in the presentation.
+2. Install JDK 17, Maven, MySQL 8+, and Tomcat 10.1+.
+3. Run database/schema.sql in MySQL.
+4. Configure PM_DB_URL, PM_DB_USER, and PM_DB_PASSWORD environment variables if needed.
+5. Run: mvn clean package
+6. Deploy target/project-management.war to Tomcat webapps.
+7. Test registration, login, project creation, task creation, and status updates.
+8. Take real screenshots of the running application and add them to screenshots/.
+9. Upload the source repository to GitHub and update the presentation with the real repository URL.
+10. Submit both the presentation and repository URL in the university portal.
+
+Note: This is an academic starter and should be tested in your environment before submission.

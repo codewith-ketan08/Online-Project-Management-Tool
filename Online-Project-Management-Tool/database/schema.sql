@@ -1,0 +1,40 @@
+CREATE DATABASE IF NOT EXISTS project_management;
+USE project_management;
+
+CREATE TABLE IF NOT EXISTS users (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  name VARCHAR(100) NOT NULL,
+  email VARCHAR(150) NOT NULL UNIQUE,
+  password_hash VARCHAR(256) NOT NULL,
+  role ENUM('ADMIN','MEMBER') NOT NULL DEFAULT 'MEMBER',
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS projects (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  name VARCHAR(150) NOT NULL,
+  description TEXT,
+  start_date DATE,
+  deadline DATE,
+  status ENUM('PLANNED','IN_PROGRESS','COMPLETED') NOT NULL DEFAULT 'PLANNED',
+  owner_id INT NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  CONSTRAINT fk_project_owner FOREIGN KEY (owner_id) REFERENCES users(id) ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS tasks (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  project_id INT NOT NULL,
+  title VARCHAR(150) NOT NULL,
+  description TEXT,
+  assigned_to INT NULL,
+  priority ENUM('LOW','MEDIUM','HIGH') NOT NULL DEFAULT 'MEDIUM',
+  status ENUM('PENDING','IN_PROGRESS','COMPLETED') NOT NULL DEFAULT 'PENDING',
+  due_date DATE,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  CONSTRAINT fk_task_project FOREIGN KEY (project_id) REFERENCES projects(id) ON DELETE CASCADE,
+  CONSTRAINT fk_task_assignee FOREIGN KEY (assigned_to) REFERENCES users(id) ON DELETE SET NULL
+);
+
+CREATE INDEX idx_projects_owner ON projects(owner_id);
+CREATE INDEX idx_tasks_project ON tasks(project_id);
